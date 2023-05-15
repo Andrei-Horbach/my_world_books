@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+<!-- БЛОК Заголовка -->
+{% block title %} Регистрация {% endblock %}
+
+
+    <h2>Регистрация</h2>
+
+<!-- БЛОК Контент -->
+{% block content %}
+    {% if form %}
+    <form class="row g-2" method="post" action="">
+        {% csrf_token %}
+        <div class="form-floating">
+            {{ form.username }}
+            <label for="floatingInput">{{ form.username.label }}:</label>
+        </div>
+        <div class="form-floating">
+            {{ form.password }}
+            <label for="floatingPassword">{{ form.password.label }}:</label>
+        </div>
+         <div class="form-floating mb-3">
+            {{ form.email }}
+            <label for="floatingInput">{{ form.email.label }}:</label>
+        </div>
+        <br><button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+    </form>
+    {% endif %}
+
+
+
+    <!-- Показываем текст когда уже был выполнен вход и мы хотим снова войти -->
+    {% if user.is_authenticated %}
+        <h4>Вы не имеете доступа к этой странице !</h4>
+        <p>Сперва <a href="/accounts/logout">выйдите</a>из системы</p>
+    {% else %}
+        <!-- Показываем текст УСПЕШНОЙ регистрации -->
+        {% if username %}
+            <h4>Вы успешно зарегистрировались.</h4>
+            <p>Ваш логин: {{ username }}</p>
+        {% endif %}
+
+        <!-- Показываем текст НЕ УСПЕШНОЙ регистрации -->
+        {% if error %}
+            <h4>Регистрация завершилась неудачно !</h4>
+            <p>Возможно этот логин уже занят: {{ error }}</p>
+         {% endif %}
+    {% endif %}
+{% endblock %}

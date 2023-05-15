@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+<!-- Блок Заголовка -->
+{% block title %}Мир книг (вход){% endblock %}
+
+<!-- Блок Контента -->
+{% block content %}
+{% if form %}
+<form class="row g-2" method="post" action="">
+    {% csrf_token %}
+    <!-- Первое поле (Логин) -->
+    <div class="form-floating">
+        {{ form.username }}
+        <label for="floatingInput">{{ form.username.label }}:</label>
+    </div>
+    <!-- Второе поле (Пароль) -->
+    <div class="form-floating">
+        {{ form.password }}
+        <label for="floatingPassword">{{ form.password.label }}:</label>
+    </div>
+    <br><button type="submit" class="btn btn-primary">Вход</button>
+</form>
+{% endif %}
+{% endblock %}
